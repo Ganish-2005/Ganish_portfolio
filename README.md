@@ -1,12 +1,44 @@
-# React + Vite
+# 💼 Ganish's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my personal portfolio website! This site highlights my skills, projects, and professional journey as a developer passionate about building engaging digital experiences.
 
-Currently, two official plugins are available:
+🌐 **Live Website**: https://ganish-portfolio.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React** 19
+- **Vite** – Lightning-fast build tool
+- **Framer Motion** – Smooth animations
+- **Lottie** – Animated illustrations
+- **React Three Fiber** – 3D visuals
+- **AOS** – Scroll animations
+- **EmailJS** – Contact form integration
+- **Styled Components** – Custom styling
+- **React Router DOM** – Page navigation
+- **TSParticles** – Interactive background particles
+
+---
+
+## 📂 Features
+
+- 🎯 Hero section with typewriter animation  
+- 🧑‍💼 About me with profile & highlights  
+- 🧰 Projects showcase with hover effects  
+- 🏢 Company section with color schemes  
+- 📞 Contact form with email integration  
+- 🌗 Dark/light theme support  
+- 📱 Fully responsive (mobile & desktop)
+
+---
+
+## 📦 Installation
+
+To run locally:
+
+```bash
+git clone https://github.com/Ganish-2005/Ganish_portfolio.git
+cd Ganish_portfolio
+npm install
+npm run dev
