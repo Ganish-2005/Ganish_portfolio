@@ -14,7 +14,7 @@ import Experience from './pages/Experience';
 import Skills from './pages/Skills';
 import Certificates from './pages/Certificates';
 import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+import Contact from './pages/contact';
 
 import Loader from './components/Loader'; // ✅ Import the loader
 
