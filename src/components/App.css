@@ -1,0 +1,38 @@
+:root {
+  --text-color: #000;
+  --background-color: #fff;
+  --section-title-bg: #0c4a6e;
+  --nav-link-bg: #e0f2fe;
+  --button-bg: #0284c7;
+  --border-color: #333;
+  --card-bg: #fff; 
+}
+
+[data-theme='dark'] {
+  --text-color: #f1f5f9;
+  --background-color: #0f172a;
+  --section-title-bg: #1e293b;
+  --nav-link-bg: #334155;
+  --button-bg: #2563eb;
+  --border-color: #555;
+  --card-bg: #1e293b;
+}
+
+
+[data-theme='light'] {
+  --section-title-bg: #2563eb;
+  --text-color: #0f172a;
+  --border-color: #2563eb;
+  --nav-list-bg: rgba(255, 255, 255, 0.8);
+  --nav-link-bg: rgba(255, 255, 255, 0.6);
+  --button-bg: #2563eb;
+}
+
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+* {
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
