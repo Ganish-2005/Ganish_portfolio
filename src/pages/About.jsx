@@ -66,14 +66,14 @@ const Timeline = () => {
               key={index}
               style={{
                 ...styles.timelineItem,
-                justifyContent: item.isLeft ? 'flex-end' : 'flex-start',
+                flexDirection: item.isLeft ? 'row-reverse' : 'row',
               }}
             >
-              {/* Content */}
               <div
                 style={{
                   ...styles.contentBox,
                   alignItems: item.isLeft ? 'flex-end' : 'flex-start',
+                  textAlign: item.isLeft ? 'right' : 'left',
                 }}
                 data-aos={item.isLeft ? 'fade-left' : 'fade-right'}
                 data-aos-duration="1000"
@@ -89,7 +89,6 @@ const Timeline = () => {
                 </div>
               </div>
 
-              {/* Line + Icon */}
               <div style={styles.centerContainer}>
                 <FaBolt style={styles.icon} />
                 <div style={connectorLine(item.isLeft)} />
@@ -104,24 +103,21 @@ const Timeline = () => {
 
 const styles = {
   wrapper: {
-    backgroundColor: '#0a0f2c',
     color: '#fff',
     padding: '4rem 1rem',
     fontFamily: 'Arial, sans-serif',
     minHeight: '100vh',
   },
- heading: {
-  textAlign: 'center',
-  marginBottom: '1rem',
-  fontSize: '2rem',
-  background: 'linear-gradient(90deg, #ff6a00, #ee0979, #00c9ff)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text', // For Firefox
-  color: 'transparent',
-},
-
-
+  heading: {
+    textAlign: 'center',
+    marginBottom: '1rem',
+    fontSize: '2rem',
+    background: 'linear-gradient(90deg, #ff6a00, #ee0979, #00c9ff)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    color: 'transparent',
+  },
   aboutSection: {
     maxWidth: '800px',
     margin: '0 auto 4rem auto',
@@ -177,17 +173,15 @@ const styles = {
     borderRadius: '12px',
   },
   title: {
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  marginBottom: '0.5rem',
-  background: 'linear-gradient(90deg, #7e3ff2, #a33db7, #cc2b7c, #e0324c, #ff2b2b)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-  color: 'transparent',
-},
-
-
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    marginBottom: '0.5rem',
+    background: 'linear-gradient(90deg, #7e3ff2, #a33db7, #cc2b7c, #e0324c, #ff2b2b)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    color: 'transparent',
+  },
   centerContainer: {
     position: 'absolute',
     left: '50%',
