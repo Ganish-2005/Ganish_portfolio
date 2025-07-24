@@ -26,16 +26,6 @@ function Skills() {
     }
   ];
 
-  const cardStyle = {
-    flex: '1 1 300px',
-    maxWidth: '350px',
-    background: 'var(--card-bg)',
-    borderRadius: '12px',
-    padding: '1.5rem',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    textAlign: 'center'
-  };
-
   const gradientText = {
     background: 'linear-gradient(90deg, #ff6a00, #ee0979, #00c9ff)',
     WebkitBackgroundClip: 'text',
@@ -45,56 +35,47 @@ function Skills() {
   };
 
   return (
-    <div style={{ padding: '2rem 1rem', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', ...gradientText }}>
+    <div style={styles.container}>
+      <div style={styles.wrapper}>
+        <h2 style={styles.mainTitle}>
           My Skills
         </h2>
 
         {sections.map((section, secIdx) => (
           <motion.div
             key={secIdx}
-            style={{ marginBottom: '3rem', textAlign: 'center' }}
+            style={styles.sectionContainer}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% visible
             transition={{ duration: 0.6 }}
           >
-            <h3 style={{
-              display: 'inline-block',
-              padding: '0.5rem 1.5rem',
-              borderRadius: '25px',
-              fontSize: '1.8rem',
-              marginBottom: '1.5rem',
-              
-            }}>
+            <h3 style={styles.sectionTitle}>
               {section.title}
             </h3>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'center' }}>
+            <div style={styles.grid}>
               {section.data.map((item, index) => (
                 <motion.div
                   key={index}
-                  style={cardStyle}
-                  whileHover={{ scale: 1.05 }}
+                  style={styles.card}
+                  whileHover={{ scale: 1.03, boxShadow: '0 8px 20px rgba(0,0,0,0.15)' }} // Enhanced hover
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% visible
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <h4 style={{ marginBottom: '1rem', ...gradientText }}>{item.category}</h4>
+                  <h4 style={{ ...styles.cardCategory, ...gradientText }}>{item.category}</h4>
                   {item.skills.map((skill, i) => (
-                    <div key={i} style={{ marginBottom: '0.8rem' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.2rem', color: 'var(--text-color)' }}>
+                    <div key={i} style={styles.skillItem}>
+                      <div style={styles.skillHeader}>
                         <span>{skill.name}</span>
                         <span>{skill.level}%</span>
                       </div>
-                      <div style={{ height: '10px', backgroundColor: '#e2e8f0', borderRadius: '5px', overflow: 'hidden' }}>
+                      <div style={styles.progressBarBackground}>
                         <div style={{
+                          ...styles.progressBarFill,
                           width: `${skill.level}%`,
-                          height: '100%',
-                          background: 'linear-gradient(90deg, #0ea5e9, #3b82f6, #9333ea)',
-                          borderRadius: '5px'
                         }}></div>
                       </div>
                     </div>
@@ -108,5 +89,106 @@ function Skills() {
     </div>
   );
 }
+
+const styles = {
+  container: {
+    padding: '2rem 1rem',
+    minHeight: '100vh',
+    // background: 'var(--background-color)', // Ensure background is consistent
+    color: 'var(--text-color)', // Ensure text color is consistent
+  },
+  wrapper: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+  mainTitle: {
+    textAlign: 'center',
+    marginBottom: '2.5rem', // More space
+    fontSize: '2.5rem', // Larger title
+    fontWeight: 'bold',
+    background: 'linear-gradient(90deg, #ff6a00, #ee0979, #00c9ff)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    color: 'transparent',
+    '@media (max-width: 768px)': {
+      fontSize: '2rem',
+      marginBottom: '2rem',
+    },
+  },
+  sectionContainer: {
+    marginBottom: '3.5rem', // More space between sections
+    textAlign: 'center',
+  },
+  sectionTitle: {
+    display: 'inline-block',
+    padding: '0.6rem 2rem', // More padding
+    borderRadius: '30px', // More rounded
+    fontSize: '2rem', // Larger title
+    fontWeight: 'bold',
+    marginBottom: '2rem', // More space below title
+    background: 'var(--button-bg)', // Use CSS variable
+    color: 'white', // Text color for button
+    boxShadow: '0 4px 10px rgba(0,0,0,0.15)', // Subtle shadow
+    '@media (max-width: 768px)': {
+      fontSize: '1.5rem',
+      padding: '0.5rem 1.5rem',
+      marginBottom: '1.5rem',
+    },
+  },
+  grid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '2rem', // More gap
+    justifyContent: 'center',
+    '@media (max-width: 768px)': {
+      gap: '1.5rem', // Adjust gap for mobile
+      flexDirection: 'column', // Stack cards on small screens
+      alignItems: 'center', // Center items when stacked
+    },
+  },
+  card: {
+    flex: '1 1 300px',
+    maxWidth: '350px',
+    background: 'var(--card-bg)',
+    borderRadius: '16px', // More rounded corners
+    padding: '2rem', // More padding inside card
+    boxShadow: '0 4px 15px rgba(0,0,0,0.1)', // More prominent shadow
+    textAlign: 'center',
+    transition: 'all 0.3s ease',
+    '@media (max-width: 768px)': {
+      maxWidth: '95%', // Adjust max width for mobile
+      padding: '1.5rem',
+    },
+  },
+  cardCategory: {
+    marginBottom: '1.2rem', // More space below category
+    fontSize: '1.5rem', // Larger font
+    fontWeight: 'bold',
+  },
+  skillItem: {
+    marginBottom: '1.2rem', // More space between skills
+  },
+  skillHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: '0.4rem', // More space below header
+    color: 'var(--text-color)',
+    fontSize: '1rem', // Slightly larger skill text
+    fontWeight: '500',
+  },
+  progressBarBackground: {
+    height: '12px', // Thicker progress bar
+    backgroundColor: 'var(--border-color)', // Use a theme variable for background
+    borderRadius: '6px', // More rounded
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    background: 'linear-gradient(90deg, #0ea5e9, #3b82f6, #9333ea)', // Consistent gradient
+    borderRadius: '6px',
+    transition: 'width 0.5s ease-out', // Smooth fill animation
+  },
+};
 
 export default Skills;

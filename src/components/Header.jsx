@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Import useLocation
+import { Link, useLocation } from 'react-router-dom';
 import { ThemeContext } from '../ThemeContext';
 import { FiMoon, FiSun, FiMenu, FiX } from 'react-icons/fi';
+import { motion } from 'framer-motion'; // Import motion for animation
 
 function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const location = useLocation(); // Get current location
+  const location = useLocation();
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -16,7 +17,7 @@ function Header() {
     { name: 'Skills', path: '/skills' },
     { name: 'Certificates', path: '/certificates' },
     { name: 'Projects', path: '/projects' },
-    { name: 'Contact', path: '/contact' }, 
+    { name: 'Contact', path: '/contact' },
   ];
 
   useEffect(() => {
@@ -25,22 +26,26 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Close menu when navigating on mobile
   useEffect(() => {
     if (isMobile && menuOpen) {
       setMenuOpen(false);
     }
-  }, [location.pathname, isMobile]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location.pathname, isMobile]);
 
   return (
     <header style={styles.header}>
-      <h2 style={styles.logo}>Ganish's Portfolio</h2> {/* More professional logo text */}
+      <h2 style={styles.logo}>Ganish's Portfolio</h2>
 
       <div style={styles.rightSection}>
         {isMobile ? (
-          <div onClick={() => setMenuOpen(!menuOpen)} style={styles.hamburger}>
-            {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </div>
+          <motion.div
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={styles.hamburger}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {menuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
+          </motion.div>
         ) : (
           <nav style={styles.nav}>
             <ul style={styles.navList}>
@@ -50,9 +55,9 @@ function Header() {
                     to={item.path}
                     style={{
                       ...styles.navLink,
-                      ...(location.pathname === item.path ? styles.activeNavLink : {}) // Apply active style
+                      ...(location.pathname === item.path ? styles.activeNavLink : {})
                     }}
-                    onMouseEnter={(e) => e.target.style.color = 'var(--accent-color)'} // Use a CSS variable for hover
+                    onMouseEnter={(e) => e.target.style.color = 'var(--primary-accent)'}
                     onMouseLeave={(e) => e.target.style.color = 'var(--text-color)'}
                   >
                     {item.name}
@@ -63,15 +68,25 @@ function Header() {
           </nav>
         )}
 
-        {/* Theme toggle always present */}
-        <div onClick={toggleTheme} style={styles.toggleButton}>
-          {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
-        </div>
+        <motion.div
+          onClick={toggleTheme}
+          style={styles.toggleButton}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          title="Toggle Theme" // Add tooltip for accessibility
+        >
+          {theme === 'light' ? <FiMoon size={22} /> : <FiSun size={22} />}
+        </motion.div>
       </div>
 
-      {/* Mobile menu overlay */}
       {menuOpen && isMobile && (
-        <div style={styles.mobileNavOverlay}>
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: '100%' }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          style={styles.mobileNavOverlay}
+        >
           <nav style={styles.mobileNav}>
             <ul style={styles.mobileNavList}>
               {navItems.map((item, idx) => (
@@ -82,7 +97,7 @@ function Header() {
                       ...styles.navLink,
                       ...(location.pathname === item.path ? styles.activeNavLink : {})
                     }}
-                    onClick={() => setMenuOpen(false)} // Close menu on link click
+                    onClick={() => setMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
@@ -90,7 +105,7 @@ function Header() {
               ))}
             </ul>
           </nav>
-        </div>
+        </motion.div>
       )}
     </header>
   );
@@ -101,19 +116,20 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '10px 20px',
+    padding: '15px 25px', // Increased padding
     background: 'var(--section-title-bg)',
     color: 'var(--text-color)',
     borderBottom: '2px solid var(--border-color)',
     position: 'relative',
     zIndex: 10,
-    flexWrap: 'wrap', // Allow wrapping for small screens
+    flexWrap: 'wrap',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.1)', // Added subtle shadow
   },
   logo: {
-    fontWeight: '700', // Make logo bolder
-    fontSize: '1.6rem', // Slightly larger logo
+    fontWeight: '800',
+    fontSize: '1.8rem', // Slightly larger logo
     margin: 0,
-    background: 'linear-gradient(90deg, #ff6a00, #ee0979, #00c9ff)', // Match other gradients
+    background: 'linear-gradient(90deg, var(--primary-accent), var(--secondary-accent))', // Use new accents
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -122,7 +138,7 @@ const styles = {
   rightSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '1.2rem', // Increased gap
   },
   nav: {
     display: 'flex',
@@ -132,66 +148,73 @@ const styles = {
   navList: {
     listStyle: 'none',
     display: 'flex',
-    gap: '20px',
+    gap: '25px', // Increased gap
     margin: 0,
     padding: 0,
   },
   navLink: {
     textDecoration: 'none',
     color: 'var(--text-color)',
-    fontWeight: '500',
-    padding: '6px 12px',
-    borderBottom: '2px solid transparent',
-    transition: 'color 0.3s, border-color 0.3s',
+    fontWeight: '600', // Bolder nav links
+    padding: '8px 15px', // Increased padding
+    borderRadius: '8px', // Slightly rounded links
+    transition: 'color 0.3s ease, background-color 0.3s ease', // Smooth transition
+    '&:hover': {
+      backgroundColor: 'rgba(var(--primary-accent-rgb), 0.1)', // Subtle background on hover
+    }
   },
   activeNavLink: {
-    color: 'var(--accent-color)', // Highlight active link
-    borderBottom: '2px solid var(--accent-color)',
+    color: 'var(--primary-accent)',
+    borderBottom: '2px solid var(--primary-accent)', // Stronger active indicator
+    fontWeight: '700',
   },
   toggleButton: {
-    background: 'var(--button-bg)', // Use button background variable
+    background: 'var(--primary-accent)',
     color: 'white',
     borderRadius: '50%',
-    width: '40px',
-    height: '40px',
+    width: '45px', // Slightly larger button
+    height: '45px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    flexShrink: 0, // Prevent shrinking
+    flexShrink: 0,
+    boxShadow: '0 4px 10px rgba(0,0,0,0.2)', // Button shadow
+    transition: 'all 0.3s ease',
   },
   hamburger: {
     cursor: 'pointer',
-    color: 'var(--text-color)',
-    display: 'block', // Ensure it's block on mobile
+    color: 'var(--primary-accent)', // Accent color for hamburger
   },
   mobileNavOverlay: {
     position: 'fixed',
-    top: '0', // Full screen overlay
+    top: '0',
     left: '0',
     right: '0',
     bottom: '0',
-    backgroundColor: 'rgba(0,0,0,0.7)', // Semi-transparent overlay
-    zIndex: 9, // Below header but above content
+    backgroundColor: 'rgba(0,0,0,0.85)', // Darker, more opaque overlay
+    zIndex: 9,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end', // Align menu to the right
     alignItems: 'center',
   },
   mobileNav: {
     background: 'var(--section-title-bg)',
-    padding: '20px',
-    borderRadius: '10px',
-    width: '80%', // Make it wider
+    padding: '30px', // More padding
+    borderRadius: '10px 0 0 10px', // Rounded only on left side
+    width: '70%', // Adjust width for mobile menu
     maxWidth: '300px',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+    height: '100%', // Full height menu
+    boxShadow: '-8px 0 20px rgba(0,0,0,0.3)', // Shadow for slide-in effect
   },
   mobileNavList: {
     listStyle: 'none',
     display: 'flex',
     flexDirection: 'column',
-    gap: '15px',
+    gap: '20px', // Increased gap
     margin: 0,
     padding: 0,
+    textAlign: 'right', // Align text to right
   },
 };
 

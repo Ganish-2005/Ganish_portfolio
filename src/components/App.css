@@ -1,38 +1,98 @@
+/*
+  Base CSS Variables (Defaults - often for light theme or general fallbacks)
+  These are effectively the light theme variables if not overridden by a specific data-theme.
+*/
 :root {
-  --text-color: #000;
-  --background-color: #fff;
-  --section-title-bg: #0c4a6e;
-  --nav-link-bg: #e0f2fe;
-  --button-bg: #0284c7;
-  --border-color: #333;
-  --card-bg: #fff; 
+  /* Colors */
+  --text-color: #333333; /* Darker text for light background */
+  --background-color: #ffffff; /* Pure white background */
+  --card-bg: #f0f4f8; /* Light grey for cards */
+  --button-bg: #1e88e5; /* Standard blue for buttons */
+  --border-color: #cbd5e1; /* Light grey border */
+  --section-title-bg: #e2e8f0; /* Light background for section titles/header/footer */
+
+  /* Accent Colors (aligned with ThemeContext.js primary/secondary/gradient-start/mid/end) */
+  --primary-accent: #6366F1;   /* Blue-Purple for light theme */
+  --secondary-accent: #EF4444; /* Red accent for light theme */
+  --gradient-start: #007bff;   /* Blue for light theme gradients */
+  --gradient-mid: #6610f2;     /* Purple for light theme gradients */
+  --gradient-end: #6f42c1;     /* Darker purple for light theme gradients */
 }
 
+/* Dark Theme Overrides */
 [data-theme='dark'] {
-  --text-color: #f1f5f9;
-  --background-color: #0f172a;
-  --section-title-bg: #1e293b;
-  --nav-link-bg: #334155;
-  --button-bg: #2563eb;
-  --border-color: #555;
-  --card-bg: #1e293b;
+  /* Colors */
+  --text-color: #e0e0e0;         /* Light grey text for dark background */
+  --background-color: #0a0f2c;   /* Deep space blue background */
+  --card-bg: #1a2035;            /* Darker card background */
+  --button-bg: #00d1ff;          /* Cyan-blue for buttons */
+  --border-color: #334155;       /* Subtle dark border */
+  --section-title-bg: #0d1338;   /* Very dark background for section titles/header/footer */
+
+  /* Accent Colors (aligned with ThemeContext.js primary/secondary/gradient-start/mid/end) */
+  --primary-accent: #8B5CF6;     /* Vibrant Purple-Blue for dark theme */
+  --secondary-accent: #EC4899;   /* Pinkish accent for dark theme */
+  --gradient-start: #ff6a00;     /* Orange for dark theme gradients */
+  --gradient-mid: #ee0979;       /* Pink for dark theme gradients */
+  --gradient-end: #00c9ff;       /* Light blue for dark theme gradients */
 }
 
-
-[data-theme='light'] {
-  --section-title-bg: #2563eb;
-  --text-color: #0f172a;
-  --border-color: #2563eb;
-  --nav-list-bg: rgba(255, 255, 255, 0.8);
-  --nav-link-bg: rgba(255, 255, 255, 0.6);
-  --button-bg: #2563eb;
-}
-
+/* Base Body Styles */
 body {
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Roboto', sans-serif; /* Consistent modern font with components */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color); /* Ensure body uses the theme background */
+  color: var(--text-color); /* Ensure body uses the theme text color */
+  min-height: 100vh; /* Ensures body takes full viewport height */
+  overflow-x: hidden; /* Prevent horizontal scroll issues */
 }
 
+/* Global Transitions */
+/* Apply transitions only to properties that change frequently to optimize performance */
 * {
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease; /* Add box-shadow to transition */
+}
+
+/* Specific elements that might need faster or different transitions */
+button, a {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease, 
+              transform 0.3s ease, /* For hover/tap effects */
+              box-shadow 0.3s ease;
+}
+
+/* Optional: Scrollbar styling for a cleaner look */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-accent);
+}
+
+/* Basic reset/box-sizing for consistency */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Global focus outline for accessibility, but styled for aesthetics */
+:focus-visible {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 2px;
+  border-radius: 4px; /* Adjust as needed */
 }
